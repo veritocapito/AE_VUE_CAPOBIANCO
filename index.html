@@ -67,17 +67,19 @@
                       </svg></span>
                     </button>
                     <div class="collapse navbar-collapse form-search gap-3" id="navbarSearchDropdown">
-                      <form class="navbar-nav  gap-3" role="search" id="checkContainer">
-          
+                      <form v-for="item of categories" class="navbar-nav  gap-3" role="search" id="checkContainer">
+                        <input v-model="categoriesSelected" type="checkbox" :name="item" :value="item" :id="item">
+                        <label class="text-light search" :for="item">{{item}}</label>
                       </form>
-                      <input class="form-control input-search align-self-end" type="search" placeholder="Search" aria-label="Search" id="card-search">
+                      <input v-model="text" class="form-control input-search align-self-end" type="search" placeholder="Search" aria-label="Search" id="card-search">
+                      {{superFilter}}
                       <!-- <button class="btn btn-outline-light" type="submit" id="search">Search</button> -->
                     </div>
                   </div>
           
                 <!-- main Home -->
                 <div class="container home d-flex flex-wrap mt-4 mb-4 justify-content-center" id="cards-home">
-                    <p v-if="!backupEvents.length" class="display-6 fw-bolder" style="padding: 2rem; height: 54vh">No matches found, try again!</p>
+                    <p v-if="!backupEvents.length" class="display-7 fw-bolder" style="padding: 2rem; height: 54vh">No matches found, try again!</p>
                     
                     <div v-for="item of backupEvents" class='card m-3' style='width: 18rem; height: 25rem; gap: 0.5rem;'>
                         <img :src="item.image" class="card-img-top p-1 card-img" alt="card-image">
