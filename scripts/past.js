@@ -1,16 +1,16 @@
-//crea una instancia de Vue
 const { createApp } =  Vue
 
-const app = createApp({
+const appP = createApp({
     //define el estado de la aplicación
     data() {
         return {
-            jsonUrl: './assets/amazing.json',
-            backupEvents: [],
+            jsonUrl: '../assets/amazing.json',
             events: [],
+            backupEvents: [],
             text: '',
             categories: [],
             categoriesSelected: [],
+            pastEvents: []
         }
     },
     created(){
@@ -27,7 +27,8 @@ const app = createApp({
                 .then(response => response.json())
                 .then(data => {
                     this.events = data.events
-                    this.backupEvents = this.events
+                    this.searchPast(this.events, data.currentDate)
+                    this.backupEvents = this.pastEvents
                     this.categoryFilter(data.events)
                 })
             } catch (error) {
@@ -42,6 +43,10 @@ const app = createApp({
                 }
             });
         },
+        //define una propiedad para obtener los eventos futuros
+        searchPast(myData, date){
+            this.pastEvents = myData.filter( item => Date.parse(item.date) > Date.parse(date))
+        }
     },
     computed:{
         superFilter(){
@@ -56,5 +61,5 @@ const app = createApp({
         },
     }
     //inicializa la instancia de Vue
-}).mount('#app')
+}).mount('#appP')
 
